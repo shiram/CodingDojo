@@ -22,7 +22,8 @@
     "site-visits.list",
     "site-visits.customer",
     "ledger.users",
-    "ledger.blacklist"
+    "ledger.blacklist",
+    "ledger.whitelist"
  ]
 ];
 
