@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Customer Record</h1>
+
+<div class="card">
+    <div class="card-header">
+      {{ record.first_name }} {{ record.last_name }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Email: {{ record.email }} </h5>
+      <h5 class="card-title">Phone: {{ record.phone }} </h5>
+      <h5 class="card-title">Address: {{ record.address }} </h5>
+      <h5 class="card-title">City: {{ record.city }} </h5>
+      <h5 class="card-title">State: {{ record.state }} </h5>
+      <h5 class="card-title">Zipcode: {{ record.zipcode }} </h5>
+      <h5 class="card-title">Created At: {{ record.created_at }} </h5>
+      <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    </div>
+  </div>
+  <br/>
+  <a href="{% url 'home' %}" class="btn btn-secondary" >Back</a>
+  <a href="{% url 'home' %}" class="btn btn-danger" >Delete</a>
+
+{% endblock %}
