@@ -1,13 +1,13 @@
 use std::collections::HashMap;
+use std::io::Read;
+use std::str::FromStr;
 
 fn main() {
     
     let action = std::env::args().nth(1).expect("Please specify an action");
     let item = std::env::args().nth(2).expect("Please specify an item");
 
-    let mut todo = Todo {
-        map: HashMap::new(),
-    };
+    let mut todo = Todo::new().expect("Initialisation of db failed");
 
     if action == "add" {
         todo.insert(item);
@@ -38,5 +38,40 @@ impl Todo {
             content.push_str(&record)
         }
         std::fs::write("db.txt", content)
+    }
+
+    fn new() -> Result<Todo, std::io::Error> {
+        //open the db file
+        let mut f = std::fs::OpenOptions::new()
+            .write(true)
+            .create(true)
+            .read(true)
+            .open("db.txt")?;
+        let mut content = String::new();
+        f.read_to_string(&mut content)?;
+
+        // let map: HashMap<String, bool> = content
+        //     .lines()
+        //     .map(|line| line.splitn(2, '\t').collect::<Vec<&str>>())
+        //     .map(|v| (v[0], v[1]))
+        //     .map(|(k, v)| (String::from(k), bool::from_str(v).unwrap()))
+        //     .collect();
+
+        // Ok(Todo{ map })
+
+        //use for loop
+        let mut map = HashMap::new();
+
+        //loop over each lines of the file.
+        for entries in content.lines() {
+            //split and bind values
+            let mut values = entries.split('\t');
+            let key = values.next().expect("No Key");
+            let val = values.next().expect("No Value");
+            // insert them into HashMap
+            map.insert(String::from(key), bool::from_str(val).unwrap());
+        }
+        // return Ok
+        Ok(Todo{ map })
     }
 }
