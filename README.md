@@ -2,3 +2,4 @@
 
 #### The Things I have Learnt
 + Setup a flask app
++ Setup configuration using class based configs and set a config using app.config.from_object
