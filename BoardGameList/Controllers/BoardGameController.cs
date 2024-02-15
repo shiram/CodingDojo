@@ -18,6 +18,7 @@ namespace BoardGameList.Controllers
         [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
         public IEnumerable<BoardGame> Get()
         {
+            _logger.LogInformation(Request.Host + "  -- Getting List Infomation");
             return new[] {
                 new BoardGame {
                     Id = 1,
