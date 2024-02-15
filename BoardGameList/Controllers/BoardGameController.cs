@@ -1,4 +1,5 @@
-﻿using BoardGameList.Models;
+﻿using BoardGameList.DTO;
+using BoardGameList.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BoardGameList.Controllers
@@ -16,11 +17,14 @@ namespace BoardGameList.Controllers
 
         [HttpGet(Name = "GetBoardGames")]
         [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
-        public IEnumerable<BoardGame> Get()
+        public RestDTO<BoardGame[]> Get()
         {
             _logger.LogInformation(Request.Host + "  -- Getting List Infomation");
-            return new[] {
-                new BoardGame {
+            return new RestDTO<BoardGame[]>()
+            {
+                Data = new BoardGame[]
+                {
+                    new BoardGame {
                     Id = 1,
                     Name = "Board Game 1",
                     Year = 1992,
@@ -54,6 +58,14 @@ namespace BoardGameList.Controllers
                     Year = 2022,
                     MinPlayers = 25000,
                     MaxPlayers = 65800
+                }
+                },
+                Links = new List<LinkDTO>
+                {
+                    new LinkDTO(
+                        Url.Action(null, "BoardGames", null, Request.Scheme)!,
+                        "self",
+                        "GET"),
                 }
             };
         }

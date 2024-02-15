@@ -6,3 +6,5 @@
 + Using developer error pages and error handling
 + Configuring Cors policies, setting global default policy, adding other cors policies (example policy used on minimal api route)
 + Add Response Cache to the application (Add to minimal api, controller)
++ Test Code On Demand using minimal api
++ Use DTO classes to define uniform interface for RESTAPI
