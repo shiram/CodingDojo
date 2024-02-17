@@ -8,6 +8,10 @@ app.config.from_object(DevelopmentConfig)
 def hello_world():
     return "hello from flask"
 
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
 @app.route('/test-view')
 def test_view():
     return render_template('test.html')
