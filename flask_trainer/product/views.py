@@ -16,3 +16,9 @@ def product_detail(product_name):
     if not product:
         abort(404)
     return render_template('product.html', product=product)
+
+@product_blueprint.context_processor
+def fullname_processor():
+    def get_fullname(product):
+        return f'{product["category"]} / {product["name"]}'
+    return dict(get_fullname=get_fullname)
