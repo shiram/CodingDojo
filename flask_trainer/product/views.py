@@ -22,3 +22,9 @@ def fullname_processor():
     def get_fullname(product):
         return f'{product["category"]} / {product["name"]}'
     return dict(get_fullname=get_fullname)
+
+@product_blueprint.app_template_filter('format_price')
+def format_price_filter(product):
+    if product['price'] > 400:
+        return f'${product["price"]}/- Per {product["category"]} per 5 People'
+    return f'${product["price"]}/- Per {product["category"]} per Person'
