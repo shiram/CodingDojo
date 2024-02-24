@@ -1,5 +1,7 @@
 {% extends 'home.html' %}
 
+{% from '_helpers.html' import render_field %}
+
 {% block container %}
     <div class="top-pad">
         <h4>{{get_fullname(product)}}</h4>
@@ -7,5 +9,9 @@
         <h3><small>{{ product['category'] }}</small></h3>
         <h5>$ {{ product['price'] }}</h5>
         <h6>{{ product | format_price }}</h6>
+    </div>
+    <div class="row">
+        {{ render_field('username', 'icon-user') }}
+        {{ render_field('password', 'icon-key', type='password') }}
     </div>
 {% endblock %}

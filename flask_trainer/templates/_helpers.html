@@ -1,0 +1,8 @@
+{% macro render_field(name, class='', value='', type='text') %}
+
+    <div class="form-group">
+        <label for="{{ name }}">{{ name | format_inputlabel }}</label>
+        <input type="{{ type }}" class="form-control {{ class }}" id="{{ name }}" name="{{ name }}" value="{{ value }}">
+    </div>
+
+{% endmacro %}

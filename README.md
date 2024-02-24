@@ -8,3 +8,4 @@
 + Create a Product Model, View and render data using jinja templating. 
 + Add a context_processor and use it to display category / product name
 + Adding a custom jinja template filter
++ Using macros  in Jinja Templates 
