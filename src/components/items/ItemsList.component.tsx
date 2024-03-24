@@ -28,7 +28,7 @@ export class ItemsListComponent extends React.Component<Props> {
                 <ul>
                     {
                         //this.props.items.map((item, index) => <li key={index} onClick={() => this.handleItemClick(item)}>{item.name} [{ String(item.selected) }]</li>)
-                        this.props.items.map((item, index) => <ItemComponent key={item.id} id={index} testid="mode-one" model={item} onItemSelect={this.props.onItemSelect}/>)
+                        this.props.items.map((item, index) => <ItemComponent key={item.id} id={index} testid={`item-${item.id}`} model={item} onItemSelect={this.props.onItemSelect}/>)
                     }
                 </ul>
             </div>
