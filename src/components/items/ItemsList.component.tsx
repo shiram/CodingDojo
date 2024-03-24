@@ -1,9 +1,11 @@
 import React from "react";
 import { ItemInterface } from "../../models/items/items.interface";
 import { ItemComponent } from "./Item.Component";
+import { Loader } from "../shared/Loader.component";
 
 
 type Props = {
+    loading: boolean,
     items: ItemInterface[],
     onItemSelect: (item: ItemInterface) => void
 }
@@ -22,17 +24,21 @@ export class ItemsListComponent extends React.Component<Props> {
     }
 
     render() {
-        return (
-            <div>
-                <h3>Items:</h3>
-                <ul>
-                    {
-                        //this.props.items.map((item, index) => <li key={index} onClick={() => this.handleItemClick(item)}>{item.name} [{ String(item.selected) }]</li>)
-                        this.props.items.map((item, index) => <ItemComponent key={item.id} id={index} testid={`item-${item.id}`} model={item} onItemSelect={this.props.onItemSelect}/>)
-                    }
-                </ul>
-            </div>
-        );
+        const { loading, items } = this.props
+        let element
+        if(loading)
+        {
+            element = <Loader/>
+        } 
+        else
+        {
+            element = <ul>
+                {
+                    items.map((item, index) => <ItemComponent key={item.id} id={index} testid={`item-${item.id}`} model={item} onItemSelect={this.props.onItemSelect}/>)
+                }
+            </ul>
+        }
+        return element
     }
 }
 

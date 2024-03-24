@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { Provider } from 'react-redux'
+import { rootStore } from './stores'
 import './App.css'
-import { ItemsListComponent } from './components/items/ItemsList.component'
 import { ItemInterface } from './models/items/items.interface'
+import ItemsView from './views/Items.view'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -54,9 +56,11 @@ function App() {
 
   return (
     <>
-      <div>
-        <ItemsListComponent items={items} onItemSelect={onItemSelect}/>
-      </div>
+      <Provider store={rootStore}>
+        <div>
+          <ItemsView />
+        </div>
+      </Provider>
     </>
   )
 }
