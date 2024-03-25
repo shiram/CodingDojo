@@ -33,3 +33,5 @@ export default {
 + How to create a component and make it reactive.
 + How to test a components behavior and rendering using vitest
 + Created a state manager using react-redux (creating store interfaces, root store). This is used to manage the entire app state.
++ Organise code for api client using domain driver design. Created Api Client Interface for entire app. Also created ItemsApiClient for the Items Component. We shall keep adding different api clients for different domains.
++ Add Api mock and live scenarios. used static json files to mock data

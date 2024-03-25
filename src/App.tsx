@@ -57,7 +57,7 @@ function App() {
   return (
     <>
       <Provider store={rootStore}>
-        <div>
+        <div className='App'>
           <ItemsView />
         </div>
       </Provider>

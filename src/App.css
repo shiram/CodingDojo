@@ -41,11 +41,8 @@
   color: #888;
 } */
 
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.App {
+  padding: 20px;
 }
   ul {
   padding-inline-start: 0;

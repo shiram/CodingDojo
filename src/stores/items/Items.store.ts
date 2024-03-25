@@ -3,6 +3,8 @@ import { Dispatch } from "react";
 import { ItemInterface } from "@/models/items/items.interface";
 import { itemsStoreSlice } from "./items.slice";
 import { RootStateInterfade } from "../root/Root.store";
+//import ref to our api client
+import { apiClient } from "../../api-client";
 
 /**
  *  @name useItemsActions
@@ -20,7 +22,7 @@ export function useItemsActions(commit: Dispatch<any>) {
             commit(mutations.setLoading(true))
 
             //mock some data
-            const mockItems: ItemInterface[] = [
+            /*const mockItems: ItemInterface[] = [
                 {
                     id: 1,
                     name: 'Item one',
@@ -51,14 +53,20 @@ export function useItemsActions(commit: Dispatch<any>) {
                     name: 'Item 6',
                     selected: false
                   }
-            ]
+            ]*/
 
             //lets say we called an API end-point
             //takes 3 seconds to return data
             //using javascript setTimeout with 3000 for millisecond option
+            /*
             setTimeout(() => {
                 commit(mutations.setItems(mockItems))
             }, 3000)
+            */
+
+            const data = await apiClient.items.fetchItems()
+
+            commit(mutations.setItems(data))
         },
         toggleItemSelected: async (item: ItemInterface) => {
             console.log('ItemsStore: action: toggleItemSelected', item)
