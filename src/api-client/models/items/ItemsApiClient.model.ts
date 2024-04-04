@@ -1,8 +1,8 @@
-import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios'
-
+import { useHttpClient, HttpRequestType, HttpRequestParamsInterface } from '../../../http-client'
 import { ItemsApiClientOptions, ItemsApiClientEndpoints } from './ItemsApiClientOptions.interface'
 import { ItemsApiClientInterface } from './ItemsApiClient.interface'
 import { ItemInterface } from '@/models/items/items.interface'
+
 
 /**
  * @name ItemsApiClientModel
@@ -22,6 +22,17 @@ export class ItemsApiClientModel implements ItemsApiClientInterface {
     }
 
     fetchItems(): Promise<ItemInterface[]> {
+        const requestParameters: HttpRequestParamsInterface = {
+            requestType: HttpRequestType.get,
+            endpoint: this.endpoints.fetchItems,
+            requiresToken: false,
+            mockDelay: this.mockDelay
+        }
+
+        return useHttpClient().request<ItemInterface[]>(requestParameters)
+    }
+
+    /*fetchItems1(): Promise<ItemInterface[]> {
         return new Promise<ItemInterface[]>((resolve) => {
             const endpoint = this.endpoints.fetchItems
 
@@ -47,5 +58,5 @@ export class ItemsApiClientModel implements ItemsApiClientInterface {
                     console.error('ItemsApiClient: HttpCliet: Get: error: Error fetching items', error)
                 })
         })
-    }
+    }*/
 }
