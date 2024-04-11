@@ -11,6 +11,7 @@ class AbstractManager(models.Manager):
         except (ObjectDoesNotExist, ValueError, TypeError):
             return Http404
         
+        
 class AbstractModel(models.Model):
     public_id = models.UUIDField(db_index=True, default=uuid.uuid4, editable=False, unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
