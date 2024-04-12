@@ -7,3 +7,4 @@
 + Creating a UserManager, modifying User model, user app. (what is a model?, what is a serializer?)
 + Creating auth app, for register, login, token refresh using jwt. (what is a viewset?, what is a router?, what is the usage of refresh token?)
 + Creating a New Model, db relationships (one to many, many to many), exploring rest_framework action decorator, passing context to a serializer. 
++ Creating nested routes using drf-nested-routers.
