@@ -8,3 +8,5 @@
 + Creating auth app, for register, login, token refresh using jwt. (what is a viewset?, what is a router?, what is the usage of refresh token?)
 + Creating a New Model, db relationships (one to many, many to many), exploring rest_framework action decorator, passing context to a serializer. 
 + Creating nested routes using drf-nested-routers.
++ Creating unit tests for django models, viewsets. Creating fixtures. All this i used pytest.
++ Structuring peoject files and code to be modular.
