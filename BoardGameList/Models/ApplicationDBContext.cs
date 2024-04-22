@@ -45,6 +45,31 @@ namespace BoardGameList.Models
                 .HasForeignKey(x => x.MechanicId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<BoardGames_Categories>()
+                .HasKey(i => new {i.BoardGameId, i.CategoryId});
+
+            modelBuilder.Entity<BoardGames_Categories>()
+                .HasOne(x => x.BoardGame)
+                .WithMany(x => x.BoardGames_Categories)
+                .HasForeignKey(x => x.BoardGameId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<BoardGames_Categories>()
+                .HasOne(x => x.Category)
+                .WithMany(x => x.BoardGames_Categories)
+                .HasForeignKey(x => x.CategoryId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<BoardGame>()
+                .HasOne(x => x.Publisher)
+                .WithMany(x => x.BoardGames)
+                .HasForeignKey(x => x.PublisherId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
 
         public DbSet<BoardGame> BoardGames => Set<BoardGame>(); 
@@ -52,5 +77,8 @@ namespace BoardGameList.Models
         public DbSet<Mechanics> Mechanics => Set<Mechanics>();
         public DbSet<BoardGames_Domains> BoardGames_Domains => Set<BoardGames_Domains>();
         public DbSet<BoardGames_Mechanics> BoardGames_Mechanics => Set<BoardGames_Mechanics>();
+        public DbSet<Publishers> Publishers => Set<Publishers>();
+        public DbSet<Category> Categories => Set<Category>();
+        public DbSet<BoardGames_Categories> BoardGames_Categories => Set<BoardGames_Categories>();
     }
 }

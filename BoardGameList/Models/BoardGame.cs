@@ -53,8 +53,24 @@ namespace BoardGameList.Models
         [Required]
         public DateTime LastTimeModified { get; set; }
 
+        [MaxLength(200)]
+        public string? AlternateNames { get; set; }
+
+        [MaxLength(200)]
+        public string? Designer { get; set; }
+
+        [Required]
+        public int Flags { get; set; }
+
+        [Required]
+        public int PublisherId { get; set; }
+        public Publishers? Publisher { get; set; }
+
         public ICollection<BoardGames_Domains>? BoardGames_Domains { get; set; }
-        
+
         public ICollection<BoardGames_Mechanics>? BoardGames_Mechanics { get; set; }
+
+        public ICollection<BoardGames_Categories>? BoardGames_Categories { get; set; }
+
     }
 }

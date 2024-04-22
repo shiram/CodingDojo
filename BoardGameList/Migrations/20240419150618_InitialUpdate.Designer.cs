@@ -4,6 +4,7 @@ using BoardGameList.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BoardGameList.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240419150618_InitialUpdate")]
+    partial class InitialUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,9 +78,6 @@ namespace BoardGameList.Migrations
                     b.Property<int>("PlayTime")
                         .HasColumnType("int");
 
-                    b.Property<int>("PublisherId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("RatingAverage")
                         .HasPrecision(4, 2)
                         .HasColumnType("decimal(4,2)");
@@ -92,27 +91,7 @@ namespace BoardGameList.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PublisherId");
-
                     b.ToTable("BoardGames");
-                });
-
-            modelBuilder.Entity("BoardGameList.Models.BoardGames_Categories", b =>
-                {
-                    b.Property<int>("BoardGameId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("BoardGameId", "CategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("BoardGames_Categories");
                 });
 
             modelBuilder.Entity("BoardGameList.Models.BoardGames_Domains", b =>
@@ -149,30 +128,6 @@ namespace BoardGameList.Migrations
                     b.HasIndex("MechanicId");
 
                     b.ToTable("BoardGames_Mechanics");
-                });
-
-            modelBuilder.Entity("BoardGameList.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastTimeModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BoardGameList.Models.Domains", b =>
@@ -237,57 +192,6 @@ namespace BoardGameList.Migrations
                     b.ToTable("Mechanics");
                 });
 
-            modelBuilder.Entity("BoardGameList.Models.Publishers", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Publishers");
-                });
-
-            modelBuilder.Entity("BoardGameList.Models.BoardGame", b =>
-                {
-                    b.HasOne("BoardGameList.Models.Publishers", "Publisher")
-                        .WithMany("BoardGames")
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Publisher");
-                });
-
-            modelBuilder.Entity("BoardGameList.Models.BoardGames_Categories", b =>
-                {
-                    b.HasOne("BoardGameList.Models.BoardGame", "BoardGame")
-                        .WithMany("BoardGames_Categories")
-                        .HasForeignKey("BoardGameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BoardGameList.Models.Category", "Category")
-                        .WithMany("BoardGames_Categories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BoardGame");
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("BoardGameList.Models.BoardGames_Domains", b =>
                 {
                     b.HasOne("BoardGameList.Models.BoardGame", "BoardGame")
@@ -328,16 +232,9 @@ namespace BoardGameList.Migrations
 
             modelBuilder.Entity("BoardGameList.Models.BoardGame", b =>
                 {
-                    b.Navigation("BoardGames_Categories");
-
                     b.Navigation("BoardGames_Domains");
 
                     b.Navigation("BoardGames_Mechanics");
-                });
-
-            modelBuilder.Entity("BoardGameList.Models.Category", b =>
-                {
-                    b.Navigation("BoardGames_Categories");
                 });
 
             modelBuilder.Entity("BoardGameList.Models.Domains", b =>
@@ -348,11 +245,6 @@ namespace BoardGameList.Migrations
             modelBuilder.Entity("BoardGameList.Models.Mechanics", b =>
                 {
                     b.Navigation("BoardGames_Mechanics");
-                });
-
-            modelBuilder.Entity("BoardGameList.Models.Publishers", b =>
-                {
-                    b.Navigation("BoardGames");
                 });
 #pragma warning restore 612, 618
         }

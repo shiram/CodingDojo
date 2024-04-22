@@ -20,6 +20,12 @@ namespace BoardGameList.Models
         [Required]
         public DateTime LastTimeModified { get; set; }
 
+        [MaxLength(200)]
+        public string? Notes { get; set; }
+
+        [Required]
+        public int Flags { get; set; }
+
         public ICollection<BoardGames_Domains>? BoardGames_Domains { get; set; }
     }
 }

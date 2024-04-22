@@ -1,10 +1,11 @@
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BoardGameList.Models 
+namespace BoardGameList.Models
 {
-    [Table("Mechanics")]
-    public class Mechanics
+    [Table("Categories")]
+    public class Category 
     {
         [Key]
         [Required]
@@ -20,12 +21,7 @@ namespace BoardGameList.Models
         [Required]
         public DateTime LastTimeModified { get; set; }
 
-        [MaxLength(200)]
-        public string? Notes { get; set; }
+        public ICollection<BoardGames_Categories>? BoardGames_Categories { get; set; }
 
-        [Required]
-        public int Flags { get; set; }
-
-        public ICollection<BoardGames_Mechanics>? BoardGames_Mechanics { get; set; }
     }
 }
