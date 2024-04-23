@@ -1,7 +1,13 @@
+using BoardGameList.Constants;
 using BoardGameList.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +16,77 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"))
         );
+
+builder.Services.AddIdentity<BoardGameUser, IdentityRole>(options => 
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 12;
+}).AddEntityFrameworkStores<ApplicationDBContext>();
+
+builder.Services.AddAuthentication(options => 
+{
+    options.DefaultAuthenticateScheme = 
+    options.DefaultChallengeScheme =
+    options.DefaultForbidScheme = 
+    options.DefaultScheme = 
+    options.DefaultSignInScheme = 
+    options.DefaultSignOutScheme =
+        JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options => 
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]))
+    };
+});
    
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddMvc(options => 
+{
+    options.CacheProfiles.Add("NoCache", new CacheProfile()
+    {
+        NoStore = true,
+        Duration = 0
+    });
+});
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme{
+        In = ParameterLocation.Header,
+        Description = "Please enter token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "bearer"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 //Add CORS
 builder.Services.AddCors(options =>
@@ -53,6 +125,7 @@ app.UseHttpsRedirection();
 //enable app to use cors
 app.UseCors();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
@@ -81,5 +154,32 @@ app.MapGet("/cod/teat",
         "text/html"
         )
     );
+
+//test auth with authorization
+app.MapGet(
+    "/auth/test/1",
+    [Authorize]
+    [EnableCors("AnyOrigin")]
+    [ResponseCache(NoStore = true)] () => {
+        return Results.Ok("You are authorized to see this content");
+    }
+);
+
+app.MapGet("/auth/test/2",
+    [Authorize(Roles = RoleNames.Moderator)]
+    [EnableCors("AnyOrigin")]
+    [ResponseCache(NoStore = true)] () => {
+        return Results.Ok("You are authorized to see this content as a moderator");
+    }
+);
+
+app.MapGet("/auth/test/3",
+    [Authorize(Roles = RoleNames.Administrator)]
+    [EnableCors("AnyOrigin")]
+    [ResponseCache(NoStore = true)] () => {
+        return Results.Ok("You are authorized to see this content as an administrator");
+    }
+);
+
 
 app.Run();

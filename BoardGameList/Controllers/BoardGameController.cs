@@ -1,5 +1,6 @@
 ﻿using BoardGameList.DTO;
 using BoardGameList.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ namespace BoardGameList.Controllers
             _context = context;
         }
 
+        [Authorize]
         [HttpGet(Name = "GetBoardGames")]
         [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
         public async Task<RestDTO<BoardGame[]>> Get()
@@ -64,7 +66,8 @@ namespace BoardGameList.Controllers
                 }
             */
             _logger.LogInformation(Request.Host + "  -- Getting List Infomation");
-            var query = _context.BoardGames;
+            //var query = _context.BoardGames;
+            var query = _context.BoardGames.Take(100);
             return new RestDTO<BoardGame[]>()
             {
                 Data = await query.ToArrayAsync(),

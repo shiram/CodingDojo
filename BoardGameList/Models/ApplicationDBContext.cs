@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace BoardGameList.Models
 {
-    public class ApplicationDBContext : DbContext
+    public class ApplicationDBContext : IdentityDbContext<BoardGameUser>
     {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
@@ -70,6 +71,16 @@ namespace BoardGameList.Models
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
+            /*
+            * To Change the default table names of asp identity, uncomment this below
+            */
+            //modelBuilder.Entity<BoardGameUser>().ToTable("Users");
+            //modelBuilder.Entity<IdentityRole>().ToTable("Roles");
+            //modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
+            //modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
+            //modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims");
+            //modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins");
+            //modelBuilder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
         }
 
         public DbSet<BoardGame> BoardGames => Set<BoardGame>(); 

@@ -10,3 +10,4 @@
 + Use DTO classes to define uniform interface for RESTAPI.
 + Add EntityFramework Packages, configure DBContext, Create Models with one to many, many to many relations, run migrations, roll back migrations.
 + Add Seeding, to create data in db. Created a seed controller, used csv to store dummy data.
++ Add Authentication with jwt, use AUthorise to implement RBAC(Role Based Access Control)
