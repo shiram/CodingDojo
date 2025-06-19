@@ -1,0 +1,208 @@
+<div class="sign-in-container">
+  <!-- Top right action buttons -->
+  <div class="top-actions">
+    <button class="action-btn" type="button">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+    </button>
+    <button class="action-btn" type="button">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Main register card -->
+  <div class="sign-in-card">
+    <!-- Register icon -->
+    <div class="icon-container">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <line x1="19" y1="8" x2="19" y2="14"></line>
+        <line x1="22" y1="11" x2="16" y2="11"></line>
+      </svg>
+    </div>
+
+    <!-- Header -->
+    <h1 class="title">Create your account</h1>
+    <p class="subtitle">
+      Join us today to bring your words, data,<br>
+      and teams together. For free
+    </p>
+
+    <!-- Form -->
+    <form class="sign-in-form" (ngSubmit)="onSubmit()">
+      <!-- Email field -->
+      <div class="input-group">
+        <div class="input-wrapper">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <input 
+            type="email" 
+            placeholder="Email" 
+            class="form-input"
+            [class.error]="emailError"
+            [(ngModel)]="email"
+            name="email"
+            required>
+        </div>
+        <div class="error-message" *ngIf="emailError">{{ emailError }}</div>
+      </div>
+
+      <!-- Username field -->
+      <div class="input-group">
+        <div class="input-wrapper">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <input 
+            type="text" 
+            placeholder="Username" 
+            class="form-input"
+            [class.error]="usernameError"
+            [(ngModel)]="username"
+            name="username"
+            required>
+        </div>
+        <div class="error-message" *ngIf="usernameError">{{ usernameError }}</div>
+      </div>
+
+      <!-- Phone field -->
+      <div class="input-group">
+        <div class="input-wrapper">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <input 
+            type="tel" 
+            placeholder="Phone" 
+            class="form-input"
+            [class.error]="phoneError"
+            [(ngModel)]="phone"
+            name="phone"
+            required>
+        </div>
+        <div class="error-message" *ngIf="phoneError">{{ phoneError }}</div>
+      </div>
+
+      <!-- Password field -->
+      <div class="input-group">
+        <div class="input-wrapper">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <circle cx="12" cy="16" r="1"></circle>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <input 
+            [type]="showPassword ? 'text' : 'password'" 
+            placeholder="Password" 
+            class="form-input"
+            [class.error]="passwordError"
+            [(ngModel)]="password"
+            name="password"
+            required>
+          <button 
+            type="button" 
+            class="password-toggle"
+            (click)="togglePassword()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" *ngIf="!showPassword"></path>
+              <circle cx="12" cy="12" r="3" *ngIf="!showPassword"></circle>
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" *ngIf="showPassword"></path>
+              <line x1="1" y1="1" x2="23" y2="23" *ngIf="showPassword"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="error-message" *ngIf="passwordError">{{ passwordError }}</div>
+      </div>
+
+      <!-- Confirm Password field -->
+      <div class="input-group">
+        <div class="input-wrapper">
+          <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <circle cx="12" cy="16" r="1"></circle>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <input 
+            [type]="showConfirmPassword ? 'text' : 'password'" 
+            placeholder="Confirm Password" 
+            class="form-input"
+            [class.error]="confirmPasswordError"
+            [(ngModel)]="confirmPassword"
+            name="confirmPassword"
+            required>
+          <button 
+            type="button" 
+            class="password-toggle"
+            (click)="toggleConfirmPassword()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" *ngIf="!showConfirmPassword"></path>
+              <circle cx="12" cy="12" r="3" *ngIf="!showConfirmPassword"></circle>
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" *ngIf="showConfirmPassword"></path>
+              <line x1="1" y1="1" x2="23" y2="23" *ngIf="showConfirmPassword"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="error-message" *ngIf="confirmPasswordError">{{ confirmPasswordError }}</div>
+      </div>
+
+      <!-- Terms and conditions -->
+      <div class="terms-section">
+        <label class="checkbox-container">
+          <input type="checkbox" [(ngModel)]="acceptTerms" name="acceptTerms" required>
+          <span class="checkmark"></span>
+          <span class="terms-text">
+            I agree to the <a href="#" class="terms-link">Terms of Service</a> and 
+            <a href="#" class="terms-link">Privacy Policy</a>
+          </span>
+        </label>
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="submit-btn" [disabled]="!isFormValid()">Create Account</button>
+    </form>
+
+    <!-- Divider -->
+    <div class="divider">
+      <span class="divider-text">Or sign up with</span>
+    </div>
+
+    <!-- Social login buttons -->
+    <div class="social-buttons">
+      <button type="button" class="social-btn" (click)="signUpWithGoogle()">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
+      </button>
+      
+      <button type="button" class="social-btn" (click)="signUpWithFacebook()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+      </button>
+      
+      <button type="button" class="social-btn" (click)="signUpWithApple()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Sign in link -->
+    <div class="sign-in-link">
+      <span class="link-text">Already have an account? </span>
+      <a href="#" class="link" (click)="goToSignIn()">Sign in</a>
+    </div>
+  </div>
+</div>
