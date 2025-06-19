@@ -1,0 +1,115 @@
+<div class="dashboard-layout">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+  
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <!-- Navbar -->
+    <app-navbar></app-navbar>
+    
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+      <div class="content-container">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+          <h2 class="welcome-title">Welcome back, Clyde!</h2>
+          <p class="welcome-subtitle">Here's what's happening with your dashboard today.</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+          <div class="stat-card" *ngFor="let card of dashboardCards">
+            <div class="stat-header">
+              <div class="stat-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <!-- Users icon -->
+                  <path *ngIf="card.icon === 'users'" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle *ngIf="card.icon === 'users'" cx="9" cy="7" r="4"></circle>
+                  <path *ngIf="card.icon === 'users'" d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path *ngIf="card.icon === 'users'" d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  
+                  <!-- Dollar icon -->
+                  <line *ngIf="card.icon === 'dollar'" x1="12" y1="1" x2="12" y2="23"></line>
+                  <path *ngIf="card.icon === 'dollar'" d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  
+                  <!-- Shopping icon -->
+                  <circle *ngIf="card.icon === 'shopping'" cx="9" cy="21" r="1"></circle>
+                  <circle *ngIf="card.icon === 'shopping'" cx="20" cy="21" r="1"></circle>
+                  <path *ngIf="card.icon === 'shopping'" d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                  
+                  <!-- Trending icon -->
+                  <polyline *ngIf="card.icon === 'trending'" points="23,6 13.5,15.5 8.5,10.5 1,18"></polyline>
+                  <polyline *ngIf="card.icon === 'trending'" points="17,6 23,6 23,12"></polyline>
+                </svg>
+              </div>
+              <div class="stat-change" [class.positive]="card.changeType === 'positive'" [class.negative]="card.changeType === 'negative'">
+                {{ card.change }}
+              </div>
+            </div>
+            <div class="stat-content">
+              <h3 class="stat-title">{{ card.title }}</h3>
+              <div class="stat-value">{{ card.value }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+          <!-- Chart Section -->
+          <div class="chart-section">
+            <div class="section-header">
+              <h3 class="section-title">Analytics Overview</h3>
+              <button class="view-all-btn">View All</button>
+            </div>
+            <div class="chart-placeholder">
+              <div class="chart-content">
+                <svg width="100%" height="200" viewBox="0 0 400 200">
+                  <defs>
+                    <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3" />
+                      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0" />
+                    </linearGradient>
+                  </defs>
+                  <polyline
+                    fill="url(#chartGradient)"
+                    stroke="#3b82f6"
+                    stroke-width="2"
+                    points="0,150 50,120 100,140 150,100 200,110 250,80 300,90 350,60 400,70"
+                  />
+                  <polyline
+                    fill="none"
+                    stroke="#3b82f6"
+                    stroke-width="2"
+                    points="0,150 50,120 100,140 150,100 200,110 250,80 300,90 350,60 400,70"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="activity-section">
+            <div class="section-header">
+              <h3 class="section-title">Recent Activity</h3>
+              <button class="view-all-btn">View All</button>
+            </div>
+            <div class="activity-list">
+              <div class="activity-item" *ngFor="let activity of recentActivities">
+                <div class="activity-avatar">
+                  <img [src]="activity.avatar" [alt]="activity.user" />
+                </div>
+                <div class="activity-content">
+                  <div class="activity-text">
+                    <span class="activity-user">{{ activity.user }}</span>
+                    <span class="activity-action">{{ activity.action }}</span>
+                  </div>
+                  <div class="activity-time">{{ activity.time }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
