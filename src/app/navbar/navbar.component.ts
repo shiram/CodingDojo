@@ -13,7 +13,7 @@ export class NavbarComponent {
   searchQuery: string = '';
   user = {
     name: 'Clyde Miles',
-    avatar: '/placeholder.svg?height=32&width=32'
+    avatar: 'assets/img/testangularprofileuser.jpg',
   };
   
   notificationCount = 3;
