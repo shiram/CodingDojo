@@ -26,6 +26,8 @@ export class LoginComponent {
       console.log('Email:', this.email);
       console.log('Password: ', this.password);
     }
+
+    this.router.navigate(['/home']);
   }
 
   goToSignUpPage(): void {
