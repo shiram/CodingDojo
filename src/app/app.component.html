@@ -77,11 +77,17 @@
     </form>
 
     <!-- Divider -->
-    <div class="divider">
+    <!--<div class="divider">
       <span class="divider-text">Or sign in with</span>
+    </div>-->
+
+    <div class="signup-in-link">
+      <span class="link-text">No account yet? </span>
+      <a href="#" class="link" (click)="goToSignUpPage(); $event.preventDefault()">Sign Up</a>
     </div>
 
     <!-- Social login buttons -->
+     <!--
     <div class="social-buttons">
       <button type="button" class="social-btn" (click)="signInWithGoogle()">
         <svg width="20" height="20" viewBox="0 0 24 24">
@@ -104,6 +110,7 @@
         </svg>
       </button>
     </div>
+  -->
   </div>
 </div>
 

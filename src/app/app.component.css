@@ -223,6 +223,22 @@
   transform: translateY(0);
 }
 
+.sign-in-link {
+  text-align: center;
+  font-size: 14px;
+}
+
+.link-text {
+  color: #666;
+}
+
+.link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
 /* Responsive design */
 @media (max-width: 480px) {
   .sign-in-card {

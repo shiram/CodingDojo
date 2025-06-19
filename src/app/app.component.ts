@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,8 @@ export class AppComponent {
   password: string = '';
   showPassword: boolean = false;
 
+  constructor(private router: Router) {}
+
   togglePassword(): void {
     this.showPassword = !this.showPassword;
   }
@@ -24,6 +27,13 @@ export class AppComponent {
       console.log('Email:', this.email);
       console.log('Password: ', this.password);
     }
+  }
+
+  goToSignUpPage(): void {
+    console.log("Navigating to Sign Up page");
+    // Here you would typically use a router to navigate to the sign-up page
+    // For example: this.router.navigate(['/register']);
+    this.router.navigate(['/register']);
   }
 
   signInWithGoogle(): void {
